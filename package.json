@@ -6,7 +6,16 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "bourbon": "^4.2.6",
+    "bourbon-neat": "^1.7.2",
+    "react": "^0.14.5",
+    "react-dom": "^0.14.5",
+    "react-redux": "^4.0.4",
+    "react-router": "^2.0.1",
+    "react-router-redux": "^4.0.0",
+    "redux": "^3.3.1"
+  },
   "devDependencies": {
     "extract-text-webpack-plugin": "^1.0.1",
     "webpack": "^1.13.0"
