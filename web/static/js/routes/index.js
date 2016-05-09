@@ -4,8 +4,9 @@ import MainLayout from '../layouts/main'
 import AuthenticatedContainer from '../containers/authenticated'
 import HomeIndexView from '../views/home'
 import RegistrationsNew from '../views/registrations/new'
-import SessionsNew from '../views/session/new'
+import SessionsNew from '../views/sessions/new'
 import BoardsShowView from '../views/boards/show'
+import CardsShowView from '../views/cards/show'
 
 export default function configRoutes(store) {
   <Route component={MainLayout}>
@@ -15,7 +16,9 @@ export default function configRoutes(store) {
     <Route path="/" component={AuthenticatedContainer}>
       <IndexRoute component={HomeIndexView} />
 
-      <Route path="/boards/:id" component={BoardsShowView} />
+      <Route path="/boards/:id" component={BoardsShowView}>
+        <Route path="cards/:id" component={CardsShowView}/>
+      </Route>
     </Route>
   </Route>
 }
