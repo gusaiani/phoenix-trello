@@ -16,6 +16,7 @@ defmodule GusaianiPhoenixTrello.SessionController do
         conn
         |> put_status(:unprocessable_entity)
         |> render("error.json")
+    end
   end
 
   def unauthenticated(conn, _params) do

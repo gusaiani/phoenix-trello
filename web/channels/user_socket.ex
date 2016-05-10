@@ -8,8 +8,8 @@ defmodule GusaianiPhoenixTrello.UserSocket do
   channel "users:*", GusaianiPhoenixTrello.UserChannel
 
   # Transports
-  transport :websocket, GusaianiPhoenixTrello.Transports.WebSocket
-  transport :longpoll, GusaianiPhoenixTrello.Transports.LongPoll
+  transport :websocket, Phoenix.Transports.WebSocket
+  transport :longpoll, Phoenix.Transports.LongPoll
 
   def connect(%{"token" => token}, socket) do
     case Guardian.decode_and_verify(token) do

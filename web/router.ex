@@ -26,6 +26,8 @@ defmodule GusaianiPhoenixTrello.Router do
       delete "/sessions", Sessioncontroller, :delete
 
       get "/current_user", CurrentUserController, :show
+
+      resources "boards", BoardController, only: [:index, :create]
     end
   end
 
