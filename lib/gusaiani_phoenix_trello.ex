@@ -12,7 +12,7 @@ defmodule GusaianiPhoenixTrello do
       # Start the Ecto repository
       supervisor(GusaianiPhoenixTrello.Repo, []),
       # Here you could define other workers and supervisors as children
-      # worker(GusaianiPhoenixTrello.Worker, [arg1, arg2, arg3]),
+      worker(GusaianiPhoenixTrello.BoardChannel.Monitor, [%{}]),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
