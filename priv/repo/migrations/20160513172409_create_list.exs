@@ -3,8 +3,9 @@ defmodule GusaianiPhoenixTrello.Repo.Migrations.CreateList do
 
   def change do
     create table(:lists) do
-      add :name, :string
-      add :board_id, references(:board, on_delete: :nothing)
+      add :name, :string, null: false
+      add :position, :integer, default: 0
+      add :board_id, references(:boards, on_delete: :delete_all)
 
       timestamps
     end
