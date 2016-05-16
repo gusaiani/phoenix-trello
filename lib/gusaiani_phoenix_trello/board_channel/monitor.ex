@@ -1,4 +1,4 @@
-defmodule GusaianiPhoenixTrello.BoardChannel.Monitor do
+defmodule PhoenixTrello.BoardChannel.Monitor do
   @moduledoc """
   Board monitor that keeps track of connected users.
   """
@@ -11,7 +11,7 @@ defmodule GusaianiPhoenixTrello.BoardChannel.Monitor do
   def create(board_id) do
     case GenServer.whereis(ref(board_id)) do
       nil ->
-        Supervisor.start_child(GusaianiPhoenixTrello.BoardChannel.Supervisor, [board_id])
+        Supervisor.start_child(PhoenixTrello.BoardChannel.Supervisor, [board_id])
       _board ->
         {:error, :board_already_exists}
     end
@@ -21,16 +21,16 @@ defmodule GusaianiPhoenixTrello.BoardChannel.Monitor do
     GenServer.start_link(__MODULE__, [], name: ref(board_id))
   end
 
-  def user_joined(board_id, member) do
-    try_call board_id, {:user_joined, user}
+  def user_joined(board_id, user) do
+   try_call board_id, {:user_joined, user}
   end
 
   def users_in_board(board_id) do
-    try_call board_id, {:users_in_board}
+   try_call board_id, {:users_in_board}
   end
 
   def user_left(board_id, user) do
-    try_call board_id, {:user_lefst, user}
+    try_call board_id, {:user_left, user}
   end
 
   #####
@@ -38,13 +38,13 @@ defmodule GusaianiPhoenixTrello.BoardChannel.Monitor do
 
   def handle_call({:user_joined, user}, _from, users) do
     users = [user] ++ users
-    |> Enum.uniq
+      |> Enum.uniq
 
     {:reply, users, users}
   end
 
   def handle_call({:users_in_board}, _from, users) do
-    {:reply, users, users}
+    { :reply, users, users }
   end
 
   def handle_call({:user_left, user}, _from, users) do
@@ -61,7 +61,7 @@ defmodule GusaianiPhoenixTrello.BoardChannel.Monitor do
       nil ->
         {:error, :invalid_board}
       board ->
-        GenServer.call(board, call_function`)
+        GenServer.call(board, call_function)
     end
   end
 end

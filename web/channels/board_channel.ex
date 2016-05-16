@@ -1,12 +1,12 @@
-defmodule PhoenixTrello.BoardChannel do
+defmodule GusaianiPhoenixTrello.BoardChannel do
   @moduledoc """
   Board channel
   """
 
-  use PhoenixTrello.Web, :channel
+  use GusaianiPhoenixTrello.Web, :channel
 
-  alias PhoenixTrello.{User, Board, UserBoard, List, Card, Comment, CardMember}
-  alias PhoenixTrello.BoardChannel.Monitor
+  alias GusaianiPhoenixTrello.{User, Board, UserBoard, List, Card, Comment, CardMember}
+  alias GusaianiPhoenixTrello.BoardChannel.Monitor
 
   def join("boards:" <> board_id, _params, socket) do
     current_user = socket.assigns.current_user
@@ -78,7 +78,7 @@ defmodule PhoenixTrello.BoardChannel do
         {:ok, _board_user} ->
           broadcast! socket, "member:added", %{user: user}
 
-          PhoenixTrello.Endpoint.broadcast_from! self(), "users:#{user.id}", "boards:add", %{board: board}
+          GusaianiPhoenixTrello.Endpoint.broadcast_from! self(), "users:#{user.id}", "boards:add", %{board: board}
 
           {:noreply, socket}
         {:error, _changeset} ->
@@ -141,7 +141,7 @@ defmodule PhoenixTrello.BoardChannel do
     case Repo.insert(changeset) do
       {:ok, _comment} ->
         card = Card
-        |> Card.preload(all)
+        |> Card.preload_all
         |> Repo.get(card_id)
 
         broadcast! socket, "comment:created", %{board: get_current_board(socket), card: card}
