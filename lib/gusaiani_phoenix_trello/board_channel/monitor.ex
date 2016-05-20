@@ -1,4 +1,4 @@
-defmodule PhoenixTrello.BoardChannel.Monitor do
+defmodule GusaianiPhoenixTrello.BoardChannel.Monitor do
   @moduledoc """
   Board monitor that keeps track of connected users.
   """
@@ -11,7 +11,7 @@ defmodule PhoenixTrello.BoardChannel.Monitor do
   def create(board_id) do
     case GenServer.whereis(ref(board_id)) do
       nil ->
-        Supervisor.start_child(PhoenixTrello.BoardChannel.Supervisor, [board_id])
+        Supervisor.start_child(GusaianiPhoenixTrello.BoardChannel.Supervisor, [board_id])
       _board ->
         {:error, :board_already_exists}
     end
