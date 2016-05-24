@@ -22,6 +22,7 @@ class Header extends React.Component {
     }
   }
 
+
   _renderBoards() {
     const { dispatch, currentBoard, socket, header } = this.props
 
