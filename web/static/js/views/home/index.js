@@ -88,7 +88,7 @@ class HomeIndexView extends React.Component {
 
   _renderAddButton() {
     return (
-      <div className="board add-new" onClick({::this._handleAddNewClick})>
+      <div className="board add-new" onClick={::this._handleAddNewClick}>
         <div className="inner">
           <a id="add_new_board">Add new board…</a>
         </div>

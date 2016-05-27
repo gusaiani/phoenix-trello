@@ -158,7 +158,7 @@ class BoardsShowView extends React.Component {
     const sourceList = lists[sourceListIndex]
     lists.splice(sourceListIndex, 1)
 
-    const targetListIndex = lists.findIndex((list) => { returl list.id === target.id })
+    const targetListIndex = lists.findIndex((list) => { return list.id === target.id })
     const targetList = lists[targetListIndex]
     lists.splice(targetListIndex, 0, sourceList)
 
