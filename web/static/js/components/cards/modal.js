@@ -126,5 +126,170 @@ export default class CardModal extends React.Component {
 
   _renderHeader() {
     const { card, edit } = this.props
+
+    if (edit) {
+      return (
+        <header className="editing">
+          <form onSubmit={::this._handleFormSubmit}>
+            <input
+              ref="name"
+              type="text"
+              placeholder="Title"
+              required="true"
+              defaultValue={card.name} />
+            <textarea
+              ref="description"
+              type="text"
+              placeholder="Description"
+              rows="5"
+              defaultValue={card.description} />
+            <button type="submit">Save card</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
+          </form>
+        </header>
+      )
+    } else {
+      return (
+        <header>
+          <h3>{card.name}</h3>
+          <div className="items-wrapper">
+            {::this._renderMembers()}
+            {::this._renderTags()}
+          </div>
+          <h5>Description</h5>
+          <p>{card.description}</p>
+          <a href="#" onClick={::this._handleHeaderClick}>Edit</a>
+        </header>
+      )
+    }
+  }
+
+  _renderMembers() {
+    const { members } = this.props.card
+
+    if (members.length == 0) return false
+
+    const memberNodes = members.map((member) => {
+      return <ReactGravatar className="react-gravatar" key={member.id} email={member.email} https />
+    })
+
+    return (
+      <div className="card-members">
+        <h5>Members</h5>
+        {memberNodes}
+      </div>
+    )
+  }
+
+  _renderTags() {
+    const { tags } = this.props.card
+
+    if (tags.length == 0) return false
+
+    const tagsNodes = tags.map((tag) => {
+      return <div key={tag} className={`tag ${tag}`}></div>
+    })
+
+    return (
+      <div className="card-tags">
+        <h5>Tags</h5>
+        {tagsNodes}
+      </div>
+    )
+  }
+
+  _handleShowMembersClick(e) {
+    e.preventDefault()
+
+    const { dispatch } = this.props
+
+    dispatch(Actions.showMembersSelector(true))
+  }
+
+  _handleShowTagsClick(e) {
+    e.preventDefault()
+
+    const { dispatch } = this.props
+
+    dispatch(Actions.showTagsSelector(true))
+  }
+
+  _renderMembersSelector() {
+    const { card, boardMembers, showMembersSelector, dispatch, channel } = this.props
+    const { members } = card
+
+    if (!showMembersSelector) return false
+
+    return (
+      <MembersSelector
+        channel={channel}
+        cardId={card.id}
+        dispatch={dispatch}
+        boardMembers={boardMembers}
+        selectedMembers={members}
+        close={::this._onMembersSelectorClose} />
+    )
+  }
+
+  _onMembersSelectorClose() {
+    const { dispatch } = this.props
+
+    dispatch(Actions.showMembersSelector(false))
+  }
+
+  _renderTagsSelector() {
+    const { card, showTagsSelector, dispatch, channel } = this.props
+    const { tags } = card
+
+    if (!showTagsSelector) return false
+
+    return (
+      <TagsSelector
+        channel={channel}
+        cardId={card.id}
+        dispatch={dispatch}
+        selectedTags={tags}
+        close={::this._onTagsSelectorClose} />
+    )
+  }
+
+  _onTagsSelectorClose() {
+    const { dispatch } = this.props
+
+    dispatch(Actions.showTagsSelector(false))
+  }
+
+  render() {
+    const { card, boardMembers, showMembersSelector } = this.props
+    const { members } = card
+
+    return (
+      <div className="md-overlay">
+        <div className="md-modal">
+          <PageClick onClick={::this._closeModal}>
+            <div className="md-content card-modal">
+              <a className="close" href="#" onClick={::this._closeModal}>
+                <i className="fa fa-close"/>
+              </a>
+              <div className="info">
+                {::this._renderHeader()}
+                {::this._renderCommentForm()}
+                {::this._renderComments()}
+              </div>
+              <div className="options">
+                <h4>Add</h4>
+                <a className="button" href="#" onClick={::this._handleShowMembersClick}>
+                  <i className="fa fa-user"/> Members
+                </a>
+                {::this._renderMembersSelector()}
+                <a className="button" href="#" onClick={::this._handleShowTagsClick}>
+                  <i className="fa fa-tag"/> Tags
+                </a>
+                {::this._renderTagsSelector()}
+              </div>
+            </div>
+          </PageClick>
+        </div>
+      </div>
+    )
   }
 }
