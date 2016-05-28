@@ -128,7 +128,7 @@ const Actions = {
     return dispatch => {
       channel.push('list:update', {list: list })
     }
-  }
+  },
 
   showMembersForm: (show) => {
     return dispatch => {

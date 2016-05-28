@@ -38,7 +38,7 @@ export default class BoardForm extends React.Component {
             <form id="new_board_form" onSubmit={::this._handleSubmit}>
               <input ref="name" id="board_name" type="text" placeholder="Board name" required="true"/>
               {renderErrorsFor(errors, 'name')}
-              <button type="submit">Create board</button> or <a href="#" onClick={::this._handleCancelClick}cancel</a>
+              <button type="submit">Create board</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
             </form>
           </div>
         </div>

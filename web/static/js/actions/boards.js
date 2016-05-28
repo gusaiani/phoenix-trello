@@ -1,6 +1,6 @@
 import Constants from '../constants'
 import { routeActions } from 'react-router-redux'
-import { httpGet, httpPost } from 'utils'
+import { httpGet, httpPost } from '../utils'
 import CurrentBoardActions from './current_board'
 
 const Actions = {
@@ -52,7 +52,7 @@ const Actions = {
   },
 
   reset: () => {
-    return dispatch{
+    return dispatch => {
       dispatch({
         type: Constants.BOARDS_RESET,
       })
