@@ -11,7 +11,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case Contants.BOARDS_FETCHING:
+    case Constants.BOARDS_FETCHING:
       return { ...state, fetching: true }
 
     case Constants.BOARDS_RECEIVED:
