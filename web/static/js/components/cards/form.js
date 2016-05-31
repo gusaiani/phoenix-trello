@@ -1,45 +1,47 @@
-import React, { PropTypes } from 'react'
-import Actions from '../../actions/lists'
-import PageClick from 'react-page-click'
+import React, { PropTypes } from 'react';
+import Actions              from '../../actions/lists';
+import PageClick            from 'react-page-click';
 
 export default class CardForm extends React.Component {
-  componentDidMount() {
-    this.refs.name.focus()
-  }
-
   _handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    let { dispatch, channel } = this.props
-    let { name } = this.refs
+    let { dispatch, channel } = this.props;
+    let { name }              = this.refs;
 
     let data = {
       list_id: this.props.listId,
       name: name.value,
-    }
+    };
 
-    dispatch(Actions.createCard(channel, data))
-    this.props.onSubmit()
+    dispatch(Actions.createCard(channel, data));
+    this.props.onSubmit();
   }
 
   _renderErrors(field) {
-    const { errors } = this.props
+    const { errors } = this.props;
 
-    if (!errors) return false
+    if (!errors) return false;
 
     return errors.map((error, i) => {
       if (error[field]) {
-        <div key={i} className="error">
-          {error[field]}
-        </div>
+        return (
+          <div key={i} className="error">
+            {error[field]}
+          </div>
+        );
       }
-    })
+    });
+  }
+
+  componentDidMount() {
+    this.refs.name.focus();
   }
 
   _handleCancelClick(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    this.props.onCancelClick()
+    this.props.onCancelClick();
   }
 
   render() {
@@ -53,6 +55,9 @@ export default class CardForm extends React.Component {
           </form>
         </div>
       </PageClick>
-    )
+    );
   }
 }
+
+CardForm.propTypes = {
+};

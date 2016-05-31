@@ -1,11 +1,11 @@
-import React, {PropTypes} from 'react'
-import {DragSource, DropTarget} from 'react-dnd'
-import { push } from 'react-router-redux'
-import ReactGravatar from 'react-gravatar'
+import React, {PropTypes}       from 'react';
+import {DragSource, DropTarget} from 'react-dnd';
+import { push }                 from 'react-router-redux';
+import ReactGravatar            from 'react-gravatar';
 
-import ItemTypes from '../../constants/item_types'
-import Actions from '../../actions/current_board'
-import CardActions from '../../actions/current_card'
+import ItemTypes                from '../../constants/item_types';
+import Actions                  from '../../actions/current_board';
+import CardActions              from '../../actions/current_card';
 
 const cardSource = {
   beginDrag(props) {
@@ -14,17 +14,17 @@ const cardSource = {
       list_id: props.list_id,
       name: props.name,
       position: props.position,
-    }
+    };
   },
 
   isDragging(props, monitor) {
-    return props.id === monitor.getItem().id
-  }
-}
+    return props.id === monitor.getItem().id;
+  },
+};
 
 const cardTarget = {
   drop(targetProps, monitor) {
-    const source = monitor.getItem()
+    const source = monitor.getItem();
 
     if (source.id !== targetProps.id) {
       const target = {
@@ -32,12 +32,12 @@ const cardTarget = {
         list_id: targetProps.list_id,
         name: targetProps.name,
         position: targetProps.position,
-      }
+      };
 
-      targetProps.onDrop({ source, target })
+      targetProps.onDrop({ source, target });
     }
   },
-}
+};
 
 @DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
@@ -50,55 +50,55 @@ const cardTarget = {
 
 export default class Card extends React.Component {
   _handleClick(e) {
-    const { dispatch, id, boardId } = this.props
+    const { dispatch, id, boardId } = this.props;
 
-    dispatch(push(`/boards/${boardId}/cards/${id}`))
+    dispatch(push(`/boards/${boardId}/cards/${id}`));
   }
 
   _renderFooter() {
-    let commentIcon = null
-    const { comments, members } = this.props
+    let commentIcon = null;
+    const { comments, members } = this.props;
 
     if (comments.length > 0) {
       commentIcon = <small>
         <i className="fa fa-comment-o"/> {comments.length}
-      </small>
+      </small>;
     }
 
     const memberNodes = members.map((member) => {
-      return <ReactGravatar className="react-gravatar" key={member.id} email={member.email} https />
-    })
+      return <ReactGravatar className="react-gravatar" key={member.id} email={member.email} https />;
+    });
 
     return (
       <footer>
         {commentIcon}
         {memberNodes}
       </footer>
-    )
+    );
   }
 
   _renderTags() {
-    const { tags } = this.props
+    const { tags } = this.props;
 
     const tagsNodes = tags.map((tag) => {
       return (
         <span key={tag} className={`tag ${tag}`}></span>
-      )
-    })
+      );
+    });
 
     return (
       <div className="tags-wrapper">
         {tagsNodes}
       </div>
-    )
+    );
   }
 
   render() {
-    const { id, connectDragSource, connectDropTarget, isDragging, name } = this.props
+    const { id, connectDragSource, connectDropTarget, isDragging, name } = this.props;
 
     const styles = {
-      display: isDragging ? 'none' : 'block'
-    }
+      display: isDragging ? 'none' : 'block',
+    };
 
     return connectDragSource(
       connectDropTarget(
@@ -108,6 +108,9 @@ export default class Card extends React.Component {
           {::this._renderFooter()}
         </div>
       )
-    )
+    );
   }
 }
+
+Card.propTypes = {
+};

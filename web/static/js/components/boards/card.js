@@ -1,9 +1,9 @@
-import React, {PropTypes} from 'react'
-import { push } from 'react-router-redux'
+import React, {PropTypes} from 'react';
+import { push }           from 'react-router-redux';
 
 export default class BoardCard extends React.Component {
   _handleClick() {
-    this.props.dispatch(push(`/boards/${this.props.id}`))
+    this.props.dispatch(push(`/boards/${this.props.id}`));
   }
 
   render() {
@@ -13,6 +13,9 @@ export default class BoardCard extends React.Component {
           <h4>{this.props.name}</h4>
         </div>
       </div>
-    )
+    );
   }
 }
+
+BoardCard.propTypes = {
+};

@@ -1,32 +1,32 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import classnames from 'classnames'
+import React                from 'react';
+import { connect }          from 'react-redux';
+import classnames           from 'classnames';
 
-import { setDocumentTitle } from '../../utils'
-import Actions from '../../actions/boards'
-import BoardCard from '../../components/boards/card'
-import BoardForm from '../../components/boards/form'
+import { setDocumentTitle } from '../../utils';
+import Actions              from '../../actions/boards';
+import BoardCard            from '../../components/boards/card';
+import BoardForm            from '../../components/boards/form';
 
 class HomeIndexView extends React.Component {
   componentDidMount() {
-    setDocumentTitle('Boards')
+    setDocumentTitle('Boards');
   }
 
   componentWillUnmount() {
-    this.props.dispatch(Actions.reset())
+    this.props.dispatch(Actions.reset());
   }
 
   _renderOwnedBoards() {
-    const { fetching } = this.props
+    const { fetching } = this.props;
 
-    let content = false
+    let content = false;
 
     const iconClasses = classnames({
       fa: true,
       'fa-user': !fetching,
       'fa-spinner': fetching,
-      'fa-spin': fetching,
-    })
+      'fa-spin':    fetching,
+    });
 
     if (!fetching) {
       content = (
@@ -34,7 +34,7 @@ class HomeIndexView extends React.Component {
           {::this._renderBoards(this.props.ownedBoards)}
           {::this._renderAddNewBoard()}
         </div>
-      )
+      );
     }
 
     return (
@@ -44,7 +44,7 @@ class HomeIndexView extends React.Component {
         </header>
         {content}
       </section>
-    )
+    );
   }
 
   _renderBoards(boards) {
@@ -52,27 +52,27 @@ class HomeIndexView extends React.Component {
       return <BoardCard
                 key={board.id}
                 dispatch={this.props.dispatch}
-                {...board} />
-    })
+                {...board} />;
+    });
   }
 
   _renderAddNewBoard() {
-    let { showForm, dispatch, formErrors } = this.props
+    let { showForm, dispatch, formErrors } = this.props;
 
-    if (!showForm) return this._renderAddButton()
+    if (!showForm) return this._renderAddButton();
 
     return (
       <BoardForm
-          dispatch={dispatch}
-          errors={formErrors}
-          onCancelClick={::this._handleCancelClick}/>
-    )
+        dispatch={dispatch}
+        errors={formErrors}
+        onCancelClick={::this._handleCancelClick}/>
+    );
   }
 
   _renderOtherBoards() {
-    const { invitedBoards } = this.props
+    const { invitedBoards } = this.props;
 
-    if (invitedBoards.length === 0) return false
+    if (invitedBoards.length === 0) return false;
 
     return (
       <section>
@@ -83,27 +83,27 @@ class HomeIndexView extends React.Component {
           {::this._renderBoards(invitedBoards)}
         </div>
       </section>
-    )
+    );
   }
 
   _renderAddButton() {
     return (
       <div className="board add-new" onClick={::this._handleAddNewClick}>
         <div className="inner">
-          <a id="add_new_board">Add new board…</a>
+          <a id="add_new_board">Add new board...</a>
         </div>
       </div>
-    )
+    );
   }
 
   _handleAddNewClick() {
-    let { dispatch } = this.props
+    let { dispatch } = this.props;
 
-    dispatch(Actions.showForm(true))
+    dispatch(Actions.showForm(true));
   }
 
   _handleCancelClick() {
-    this.props.dispatch(Actions.showForm(false))
+    this.props.dispatch(Actions.showForm(false));
   }
 
   render() {
@@ -112,12 +112,12 @@ class HomeIndexView extends React.Component {
         {::this._renderOwnedBoards()}
         {::this._renderOtherBoards()}
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => (
   state.boards
-}
+);
 
-export default connect(mapStateToProps)(HomeIndexView)
+export default connect(mapStateToProps)(HomeIndexView);

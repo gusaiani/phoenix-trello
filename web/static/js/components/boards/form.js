@@ -1,34 +1,34 @@
-import React, { PropTypes } from 'react'
-import Actions from '../../actions/boards'
-import PageClick from 'react-page-click'
-import {renderErrorsFor} from '../../utils'
+import React, { PropTypes } from 'react';
+import Actions              from '../../actions/boards';
+import PageClick            from 'react-page-click';
+import {renderErrorsFor}    from '../../utils';
 
 export default class BoardForm extends React.Component {
   componentDidMount() {
-    this.refs.name.focus()
+    this.refs.name.focus();
   }
 
   _handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    const { dispatch } = this.props
-    const { name } = this.refs
+    const { dispatch } = this.props;
+    const { name } = this.refs;
 
     const data = {
       name: name.value,
-    }
+    };
 
-    dispatch(Actions.create(data))
+    dispatch(Actions.create(data));
   }
 
   _handleCancelClick(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    this.props.onCancelClick()
+    this.props.onCancelClick();
   }
 
   render() {
-    const { errors } = this.props
+    const { errors } = this.props;
 
     return (
       <PageClick onClick={::this._handleCancelClick}>
@@ -43,6 +43,6 @@ export default class BoardForm extends React.Component {
           </div>
         </div>
       </PageClick>
-    )
+    );
   }
 }
