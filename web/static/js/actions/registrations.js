@@ -1,19 +1,19 @@
-import { push } from 'react-router-redux'
-import Constants from '../constants'
-import { httpPost } from '../utils'
-import { setCurrentUser } from './sessions'
+import { push }   from 'react-router-redux';
+import Constants          from '../constants';
+import { httpPost }       from '../utils';
+import {setCurrentUser}   from './sessions';
 
-const Actions = {}
+const Actions = {};
 
 Actions.signUp = (data) => {
   return dispatch => {
     httpPost('/api/v1/registrations', { user: data })
     .then((data) => {
-      localStorage.setItem('phoenixAuthToken', data.jwt)
+      localStorage.setItem('phoenixAuthToken', data.jwt);
 
-      setCurrentUser(dispatch, data.user)
+      setCurrentUser(dispatch, data.user);
 
-      dispatch(push('/'))
+      dispatch(push('/'));
     })
     .catch((error) => {
       error.response.json()
@@ -21,10 +21,10 @@ Actions.signUp = (data) => {
         dispatch({
           type: Constants.REGISTRATIONS_ERROR,
           errors: errorJSON.errors,
-        })
-      })
-    })
-  }
-}
+        });
+      });
+    });
+  };
+};
 
 export default Actions;
