@@ -16,7 +16,7 @@ defmodule GusaianiPhoenixTrello.Router do
     plug Guardian.Plug.LoadResource
   end
 
-  scope "/api", PhoenixTrello do
+  scope "/api", GusaianiPhoenixTrello do
     pipe_through :api
 
     scope "/v1" do

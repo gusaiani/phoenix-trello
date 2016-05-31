@@ -1,31 +1,39 @@
-import React, {PropTypes} from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import React, {PropTypes}   from 'react';
+import { connect }          from 'react-redux';
+import { Link }             from 'react-router';
 
-import {setDocumentTitle } from '../../utils'
-import Actions from '../../actions/sessions'
+import { setDocumentTitle } from '../../utils';
+import Actions              from '../../actions/sessions';
 
 class SessionsNew extends React.Component {
   componentDidMount() {
-    setDocumentTitle('Sign in')
+    setDocumentTitle('Sign in');
   }
 
   _handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    const { email, password } = this.refs
-    const { dispatch } = this.props
+    const { email, password } = this.refs;
+    const { dispatch } = this.props;
 
-    dispatch(Actions.signIn(email.value, password.value))
+    dispatch(Actions.signIn(email.value, password.value));
   }
 
   _renderError() {
-    let { error } = this.props
+    let { error } = this.props;
 
-    if (!error) return false
+    if (!error) return false;
 
     return (
-      <div className="view-container sessions new">
+      <div className="error">
+        {error}
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div className='view-container sessions new'>
         <main>
           <header>
             <div className="logo" />
@@ -35,7 +43,7 @@ class SessionsNew extends React.Component {
             <div className="field">
               <input
                 ref="email"
-                type="email"
+                type="Email"
                 id="user_email"
                 placeholder="Email"
                 required="true"
@@ -55,12 +63,12 @@ class SessionsNew extends React.Component {
           <Link to="/sign_up">Create new account</Link>
         </main>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => (
   state.session
-)
+);
 
-export default connect(mapStateToProps)(SessionsNew)
+export default connect(mapStateToProps)(SessionsNew);
