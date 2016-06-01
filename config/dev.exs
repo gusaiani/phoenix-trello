@@ -42,3 +42,7 @@ config :gusaiani_phoenix_trello, GusaianiPhoenixTrello.Repo,
   database: "gusaiani_phoenix_trello_dev",
   hostname: "localhost",
   pool_size: 10
+
+# Guardian configuration
+config :guardian, Guardian,
+  secret_key: "W9cDv9fjPtsYv2gItOcFb5PzmRzqGkrOsJGmby0KpBOlHJIlhxMKFmIlcCG9PVFQ"
